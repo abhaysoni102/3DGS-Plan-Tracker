@@ -26,7 +26,7 @@
 
     <div class="nav-section">
       <div class="nav-label">Navigation</div>
-      <div class="nav-item" data-section="setup">        <span class="nav-icon">⚙</span> Setup</div>
+      <div class="nav-item" data-section="setup">        <span class="nav-icon">⚙</span> Access</div>
       <div class="nav-item" data-section="roadmap">      <span class="nav-icon">◈</span> Roadmap</div>
       <div class="nav-item" data-section="compartments"> <span class="nav-icon">▦</span> Compartments</div>
       <div class="nav-item" data-section="compare">      <span class="nav-icon">≡</span> Tool comparison</div>
@@ -44,41 +44,17 @@
   <!-- ── MAIN ── -->
   <main class="main">
 
-    <!-- SETUP -->
+    <!-- ACCESS -->
     <div id="s-setup" class="section">
-      <div class="page-title">Setup</div>
-      <div class="page-sub">Configure shared storage so your whole team syncs in real-time.</div>
-
+      <div class="page-title">Access</div>
+      <div class="page-sub">Paste the shared credentials from your group chat, enter your name, and connect.</div>
       <div class="setup-card">
-        <h3>// how it works</h3>
-        <p style="font-size:12px;color:var(--text2);margin-bottom:.75rem;line-height:1.7">
-          All test data is stored in a shared <strong style="color:var(--text)">JSONBin.io</strong> bin.
-          Anyone who enters the same credentials sees live updates. Data is stored on JSONBin's servers —
-          not in your browser — so nothing is lost when you close the tab.
-        </p>
-        <ol class="setup-steps">
-          <li>Go to <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> and create a free account</li>
-          <li>Create a new <strong style="color:var(--text)">bin</strong> with content <code>{"logs":[]}</code> — copy the Bin ID</li>
-          <li>Go to your account → API Keys → create a new key — copy the secret key</li>
-          <li>Paste both below, enter your name, click Save. Share credentials with your team via your group chat.</li>
-        </ol>
         <div class="config-row">
           <div class="fg"><label>Bin ID</label><input type="text" id="cfg-binid" placeholder="6…"></div>
           <div class="fg"><label>API Key (secret)</label><input type="text" id="cfg-apikey" placeholder="$2b$10$…"></div>
           <div class="fg" style="min-width:90px"><label>Your name</label><input type="text" id="cfg-name" placeholder="e.g. Alex"></div>
           <div><button class="btn btn-accent" onclick="saveConfig()">Save &amp; connect</button></div>
         </div>
-      </div>
-
-      <div class="card">
-        <h3>// deploy to github pages — 5 steps</h3>
-        <ol class="setup-steps">
-          <li>Clone or download this repository to your machine</li>
-          <li>Commit all files as-is — keep the folder structure (<code>css/</code>, <code>js/</code>, <code>index.html</code>)</li>
-          <li>Push to the GitHub repo your team created</li>
-          <li>In the repo: Settings → Pages → Source: Deploy from branch → main → / (root) → Save</li>
-          <li>Share the resulting <code>https://&lt;org&gt;.github.io/&lt;repo&gt;</code> URL. Each teammate enters the same bin ID + API key in Setup.</li>
-        </ol>
       </div>
     </div>
 
