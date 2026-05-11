@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>spaces360 · 3DGS Research Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar">
+    <div class="logo">
+      <div class="logo-title">spaces360</div>
+      <div class="logo-sub">3DGS Research Tracker</div>
+    </div>
+
+    <div class="sync-bar">
+      <div class="sync-dot" id="syncDot"></div>
+      <span class="sync-text" id="syncText">not configured</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Navigation</div>
+      <div class="nav-item" data-section="setup">        <span class="nav-icon">⚙</span> Setup</div>
+      <div class="nav-item" data-section="roadmap">      <span class="nav-icon">◈</span> Roadmap</div>
+      <div class="nav-item" data-section="compartments"> <span class="nav-icon">▦</span> Compartments</div>
+      <div class="nav-item" data-section="compare">      <span class="nav-icon">≡</span> Tool comparison</div>
+      <div class="nav-item" data-section="log">          <span class="nav-icon">+</span> Log a test</div>
+      <div class="nav-item" data-section="activity">     <span class="nav-icon">◎</span> Activity feed</div>
+      <div class="nav-item" data-section="report">       <span class="nav-icon">↗</span> Export report</div>
+    </div>
+
+    <div class="sidebar-stats">
+      <div class="s-stat"><div class="s-stat-n" id="ss-tests">0</div><div class="s-stat-l">tests</div></div>
+      <div class="s-stat"><div class="s-stat-n" id="ss-opts">0</div><div class="s-stat-l">options</div></div>
+    </div>
+  </nav>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- SETUP -->
+    <div id="s-setup" class="section">
+      <div class="page-title">Setup</div>
+      <div class="page-sub">Configure shared storage so your whole team syncs in real-time.</div>
+
+      <div class="setup-card">
+        <h3>// how it works</h3>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:.75rem;line-height:1.7">
+          All test data is stored in a shared <strong style="color:var(--text)">JSONBin.io</strong> bin.
+          Anyone who enters the same credentials sees live updates. Data is stored on JSONBin's servers —
+          not in your browser — so nothing is lost when you close the tab.
+        </p>
+        <ol class="setup-steps">
+          <li>Go to <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> and create a free account</li>
+          <li>Create a new <strong style="color:var(--text)">bin</strong> with content <code>{"logs":[]}</code> — copy the Bin ID</li>
+          <li>Go to your account → API Keys → create a new key — copy the secret key</li>
+          <li>Paste both below, enter your name, click Save. Share credentials with your team via your group chat.</li>
+        </ol>
+        <div class="config-row">
+          <div class="fg"><label>Bin ID</label><input type="text" id="cfg-binid" placeholder="6…"></div>
+          <div class="fg"><label>API Key (secret)</label><input type="text" id="cfg-apikey" placeholder="$2b$10$…"></div>
+          <div class="fg" style="min-width:90px"><label>Your name</label><input type="text" id="cfg-name" placeholder="e.g. Alex"></div>
+          <div><button class="btn btn-accent" onclick="saveConfig()">Save &amp; connect</button></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>// deploy to github pages — 5 steps</h3>
+        <ol class="setup-steps">
+          <li>Clone or download this repository to your machine</li>
+          <li>Commit all files as-is — keep the folder structure (<code>css/</code>, <code>js/</code>, <code>index.html</code>)</li>
+          <li>Push to the GitHub repo your team created</li>
+          <li>In the repo: Settings → Pages → Source: Deploy from branch → main → / (root) → Save</li>
+          <li>Share the resulting <code>https://&lt;org&gt;.github.io/&lt;repo&gt;</code> URL. Each teammate enters the same bin ID + API key in Setup.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ROADMAP -->
+    <div id="s-roadmap" class="section">
+      <div class="page-title">8-week roadmap</div>
+      <div class="page-sub">Priority-ordered sprint plan. Start at P1, move down. No GPU needed for P1 and P2.</div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-n" id="rd-tests">0</div><div class="stat-l">tests logged</div></div>
+        <div class="stat-card"><div class="stat-n" id="rd-comp">0/8</div><div class="stat-l">compartments started</div></div>
+        <div class="stat-card"><div class="stat-n" id="rd-opts">0</div><div class="stat-l">options evaluated</div></div>
+        <div class="stat-card"><div class="stat-n" id="rd-week">—</div><div class="stat-l">current week</div></div>
+      </div>
+
+      <div class="card">
+        <div class="legend">
+          <div class="leg"><div class="leg-dot" style="background:#9b7ff4"></div>Layer A — Capture</div>
+          <div class="leg"><div class="leg-dot" style="background:#60d0a0"></div>Layer B — Composition</div>
+          <div class="leg"><div class="leg-dot" style="background:#f0a060"></div>Layer C — Render</div>
+          <div class="leg"><div class="leg-dot" style="background:#3a3d42"></div>Integration / report</div>
+        </div>
+        <div class="week-grid">
+          <div><div class="week-label">W1</div><div class="week-block wA">A.1 cloud research</div></div>
+          <div><div class="week-label">W2</div><div class="week-block wA">A.1 captures + A.2 objects</div></div>
+          <div><div class="week-label">W3</div><div class="week-block wA" style="margin-bottom:4px">A.1 large venue</div><div class="week-block wB">B.1 editor setup</div></div>
+          <div><div class="week-label">W4</div><div class="week-block wB">B.1 full test + B.2 floor detect</div></div>
+          <div><div class="week-label">W5</div><div class="week-block wB" style="margin-bottom:4px">B.2 LLM + B.3 survey</div><div class="week-block wC">C.1 viewer</div></div>
+          <div><div class="week-label">W6</div><div class="week-block wC">C.1 perf + C.2 editing</div></div>
+          <div><div class="week-label">W7</div><div class="week-block wC" style="margin-bottom:4px">C.2 + C.3 save/share</div><div class="week-block wX">Demo build</div></div>
+          <div><div class="week-label">W8</div><div class="week-block wX">Eval report + Matterport compare + presentation</div></div>
+        </div>
+      </div>
+
+      <div class="priority-list" id="priority-list"></div>
+    </div>
+
+    <!-- COMPARTMENTS -->
+    <div id="s-compartments" class="section">
+      <div class="page-title">Compartments</div>
+      <div class="page-sub">9 self-contained research tasks. Click any card to jump to its tool comparison.</div>
+      <div id="comp-layer-a"></div>
+      <div id="comp-layer-b"></div>
+      <div id="comp-layer-c"></div>
+    </div>
+
+    <!-- COMPARE -->
+    <div id="s-compare" class="section">
+      <div class="page-title">Tool comparison</div>
+      <div class="page-sub">All options per compartment. Purple left border = already tested. Click a compartment card to jump here.</div>
+      <div class="tool-tabs" id="tool-tabs"></div>
+      <div id="tools-content"></div>
+    </div>
+
+    <!-- LOG -->
+    <div id="s-log" class="section">
+      <div class="page-title">Log a test</div>
+      <div class="page-sub">Fill in after every test session. All scores sync to your team in real-time.</div>
+      <div class="card">
+        <div class="log-grid">
+          <div>
+            <div class="fg">
+              <label>Compartment</label>
+              <select id="l-comp">
+                <option value="">Select...</option>
+                <option value="A.1">A.1 — Venue 3DGS capture</option>
+                <option value="A.2">A.2 — Furniture object 3DGS</option>
+                <option value="B.1">B.1 — Manual composition</option>
+                <option value="B.2">B.2 — Auto floor + LLM placement</option>
+                <option value="B.3">B.3 — End-to-end service</option>
+                <option value="C.1">C.1 — Browser viewer</option>
+                <option value="C.2">C.2 — Interactive editing</option>
+                <option value="C.3">C.3 — Save and share</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Option tested (e.g. A.1.opt1 — Luma AI)</label>
+              <input type="text" id="l-opt" placeholder="A.1.opt1 — Luma AI cloud">
+            </div>
+            <div class="fg">
+              <label>Your name / initials</label>
+              <input type="text" id="l-who" placeholder="e.g. Alex">
+            </div>
+            <div class="fg">
+              <label>Scale tested</label>
+              <select id="l-scale">
+                <option value="small">Small (&lt;50 sqm)</option>
+                <option value="medium">Medium (50–200 sqm)</option>
+                <option value="large">Large (200–1000 sqm)</option>
+                <option value="object">Single object (furniture)</option>
+                <option value="n/a">N/A</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div class="fg">
+              <label>Capture time (minutes)</label>
+              <input type="number" id="l-cap" placeholder="e.g. 15">
+            </div>
+            <div class="fg">
+              <label>Processing time (minutes)</label>
+              <input type="number" id="l-proc" placeholder="e.g. 38">
+            </div>
+            <div class="fg">
+              <label>Cost (€ or free)</label>
+              <input type="text" id="l-cost" placeholder="0 (free tier)">
+            </div>
+            <div class="fg">
+              <label>Pass / partial / fail</label>
+              <select id="l-pass">
+                <option value="pass">Pass</option>
+                <option value="partial">Partial</option>
+                <option value="fail">Fail</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="score-grid">
+          <div class="score-row"><label>Walls</label>         <div class="stars" id="sr-walls" data-v="0"></div></div>
+          <div class="score-row"><label>Floor</label>         <div class="stars" id="sr-floor" data-v="0"></div></div>
+          <div class="score-row"><label>Ceiling</label>       <div class="stars" id="sr-ceil"  data-v="0"></div></div>
+          <div class="score-row"><label>Glass / reflections</label><div class="stars" id="sr-glass" data-v="0"></div></div>
+          <div class="score-row"><label>Textureless areas</label>  <div class="stars" id="sr-tex"   data-v="0"></div></div>
+          <div class="score-row"><label>Overall usability</label>  <div class="stars" id="sr-use"   data-v="0"></div></div>
+        </div>
+
+        <div class="fg">
+          <label>Failure modes observed (one per line)</label>
+          <textarea id="l-fail" placeholder="e.g. Centre of hall has visible holes&#10;Glass wall reconstructed as floaters"></textarea>
+        </div>
+        <div class="fg">
+          <label>Raw observations / notes</label>
+          <textarea id="l-notes" placeholder="Anything worth recording for the writeup..."></textarea>
+        </div>
+        <div class="fg">
+          <label>Recommendation</label>
+          <select id="l-rec">
+            <option value="recommended">Recommended</option>
+            <option value="conditional">Conditional (with caveats)</option>
+            <option value="not-recommended">Not recommended</option>
+            <option value="tbd">TBD — need more testing</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-accent" onclick="Logger.submit()">Save &amp; sync</button>
+          <button class="btn"            onclick="Logger.reset()">Clear form</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div id="s-activity" class="section">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
+        <div>
+          <div class="page-title">Activity feed</div>
+          <div class="page-sub" style="margin:0">All test results from the team, newest first.</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sm" onclick="Sync.load()">↻ Refresh</button>
+          <button class="btn btn-sm" onclick="exportJSON()">↓ Export JSON</button>
+        </div>
+      </div>
+      <div id="feed-filter" style="display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap">
+        <button class="btn btn-sm filter-active" onclick="Activity.setFilter('all',this)">All</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('A.1',this)">A.1</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('A.2',this)">A.2</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('B.1',this)">B.1</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('B.2',this)">B.2</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('B.3',this)">B.3</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('C.1',this)">C.1</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('C.2',this)">C.2</button>
+        <button class="btn btn-sm" onclick="Activity.setFilter('C.3',this)">C.3</button>
+      </div>
+      <div id="feed"></div>
+    </div>
+
+    <!-- REPORT -->
+    <div id="s-report" class="section">
+      <div class="page-title">Export report</div>
+      <div class="page-sub">Formatted Q5 output per compartment — paste directly into your writeup docs.</div>
+      <div style="display:flex;gap:8px;margin-bottom:1.5rem">
+        <button class="btn btn-accent" onclick="Activity.buildReport()">Generate report</button>
+        <button class="btn"            onclick="exportJSON()">↓ Raw JSON backup</button>
+      </div>
+      <div id="report-out"></div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Scripts: data first, then utilities, then modules, then app -->
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/logger.js"></script>
+<script src="js/roadmap.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/activity.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
